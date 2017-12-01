@@ -17,5 +17,5 @@ docker run --detach \ <br>
   --name [name] \ <br>
   --volume [path] \ <br>
   --link mysql:mysql \ <br>
-  --env [env1=something] \ <br>
+  --env [env1=something1] \ <br>
     containerstack/docker-mariadb
