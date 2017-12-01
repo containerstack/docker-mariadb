@@ -72,8 +72,8 @@ RUN echo "deb https://repo.percona.com/apt jessie main" > /etc/apt/sources.list.
 		echo 'Pin-Priority: 998'; \
 	} > /etc/apt/preferences.d/percona
 
-ENV MARIADB_MAJOR 10.1
-ENV MARIADB_VERSION 10.1.28+maria-1~jessie
+ENV MARIADB_MAJOR 10.2
+ENV MARIADB_VERSION 10.2.10+maria~jessie
 
 RUN echo "deb http://ftp.osuosl.org/pub/mariadb/repo/$MARIADB_MAJOR/debian jessie main" > /etc/apt/sources.list.d/mariadb.list \
 	&& { \
@@ -94,7 +94,7 @@ RUN { \
 	&& apt-get install -y \
 		"mariadb-server=$MARIADB_VERSION" \
 # percona-xtrabackup is installed at the same time so that `mysql-common` is only installed once from just mariadb repos
-		percona-xtrabackup \
+		percona-xtrabackup-24 \
 		socat \
 	&& rm -rf /var/lib/apt/lists/* \
 # comment out any "user" entires in the MySQL config ("docker-entrypoint.sh" or "--user" will handle user switching)
