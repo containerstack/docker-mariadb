@@ -2,7 +2,7 @@
 ![Docker & MariaDB banner](/images/docker-mariadb-banner.png)
 
 ### Docker automated builds
-The Docker automated builds can be found over here: https://hub.docker.com/r/containerstack/docker-mariadb/
+The Docker automated builds can be found over here: https://hub.docker.com/r/containerstack/docker-mariadb
 
 ### Pull Docker image
 docker pull remonlam/docker-mariadb
