@@ -9,7 +9,7 @@ MARIADB_MAJOR: 10.3
 MARIADB_VERSION: 10.3.2
 
 ### Pull Docker image
-docker pull remonlam/docker-mariadb
+docker pull containerstack/mariadb
 
 ### Start a container based on this image
 docker run --detach \ <br>
@@ -18,4 +18,4 @@ docker run --detach \ <br>
   --volume [path] \ <br>
   --link mysql:mysql \ <br>
   --env [env1=something1] \ <br>
-    containerstack/docker-mariadb
+    containerstack/mariadb
