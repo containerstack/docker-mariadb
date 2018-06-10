@@ -1,6 +1,5 @@
-FROM containerstack/debian:jessie-slim
-
-LABEL maintainer="Remon Lam <remon@containerstack.io>"
+FROM containerstack/debian:jessie
+MAINTAINER Remon Lam [remon@containerstack.io]
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r mysql && useradd -r -g mysql mysql
@@ -33,7 +32,7 @@ RUN set -ex; \
 	\
 	apt-get purge -y --auto-remove $fetchDeps
 
-RUN mkdir /entrypoint-initdb.d
+RUN mkdir /docker-entrypoint-initdb.d
 
 # install "pwgen" for randomizing passwords
 # install "apt-transport-https" for Percona's repo (switched to https-only)
@@ -73,8 +72,9 @@ RUN echo "deb https://repo.percona.com/apt jessie main" > /etc/apt/sources.list.
 		echo 'Pin-Priority: 998'; \
 	} > /etc/apt/preferences.d/percona
 
-ENV MARIADB_MAJOR 10.3
-ENV MARIADB_VERSION 1:10.3.7+maria~jessie
+  ENV MARIADB_MAJOR 10.0
+  ENV MARIADB_VERSION 10.0.35+maria-1~jessie
+# Check http://ftp.osuosl.org/pub/mariadb/repo for sub version info
 
 RUN echo "deb http://ftp.osuosl.org/pub/mariadb/repo/$MARIADB_MAJOR/debian jessie main" > /etc/apt/sources.list.d/mariadb.list \
 	&& { \
@@ -98,7 +98,7 @@ RUN { \
 		percona-xtrabackup-24 \
 		socat \
 	&& rm -rf /var/lib/apt/lists/* \
-# comment out any "user" entires in the MySQL config ("entrypoint.sh" or "--user" will handle user switching)
+# comment out any "user" entires in the MySQL config ("docker-entrypoint.sh" or "--user" will handle user switching)
 	&& sed -ri 's/^user\s/#&/' /etc/mysql/my.cnf /etc/mysql/conf.d/* \
 # purge and re-create /var/lib/mysql with appropriate ownership
 	&& rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql /var/run/mysqld \
@@ -114,9 +114,9 @@ RUN { \
 
 VOLUME /var/lib/mysql
 
-COPY entrypoint.sh /usr/local/bin/
-RUN ln -s usr/local/bin/entrypoint.sh / # backwards compat
-ENTRYPOINT ["entrypoint.sh"]
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 3306
 CMD ["mysqld"]
