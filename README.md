@@ -5,8 +5,8 @@
 The Docker automated builds can be found over here: https://hub.docker.com/r/containerstack/docker-mariadb
 
 ### Release version;
-MARIADB_MAJOR: 10.3
-MARIADB_VERSION: 10.3.2
+MARIADB_MAJOR: 10.1
+MARIADB_VERSION: 10.1.33
 
 ### Pull Docker image
 docker pull containerstack/mariadb

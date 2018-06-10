@@ -4,6 +4,10 @@ MAINTAINER Remon Lam [remon@containerstack.io]
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r mysql && useradd -r -g mysql mysql
 
+ENV MARIADB_MAJOR 10.1
+ENV MARIADB_VERSION 10.1.33+maria-1~jessie
+# Check http://ftp.osuosl.org/pub/mariadb/repo for sub version info
+
 # add gosu for easy step-down from root
 ENV GOSU_VERSION 1.10
 RUN set -ex; \
@@ -71,10 +75,6 @@ RUN echo "deb https://repo.percona.com/apt jessie main" > /etc/apt/sources.list.
 		echo 'Pin: release o=Percona Development Team'; \
 		echo 'Pin-Priority: 998'; \
 	} > /etc/apt/preferences.d/percona
-
-  ENV MARIADB_MAJOR 10.0
-  ENV MARIADB_VERSION 10.0.35+maria-1~jessie
-# Check http://ftp.osuosl.org/pub/mariadb/repo for sub version info
 
 RUN echo "deb http://ftp.osuosl.org/pub/mariadb/repo/$MARIADB_MAJOR/debian jessie main" > /etc/apt/sources.list.d/mariadb.list \
 	&& { \
