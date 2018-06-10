@@ -4,8 +4,8 @@ MAINTAINER Remon Lam [remon@containerstack.io]
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r mysql && useradd -r -g mysql mysql
 
-ENV MARIADB_MAJOR 10.1
-ENV MARIADB_VERSION 10.1.33+maria-1~jessie
+ENV MARIADB_MAJOR 10.2
+ENV MARIADB_VERSION 10.2.15+maria~jessie
 # Check http://ftp.osuosl.org/pub/mariadb/repo for sub version info
 
 # add gosu for easy step-down from root
