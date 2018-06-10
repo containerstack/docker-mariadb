@@ -88,7 +88,8 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 		mkdir -p "$DATADIR"
 
 		echo 'Initializing database'
-		mysql_install_db --datadir="$DATADIR" --rpm
+		# "Other options are passed to mysqld." (so we pass all "mysqld" arguments directly here)
+		mysql_install_db --datadir="$DATADIR" --rpm "${@:2}"
 		echo 'Database initialized'
 
 		SOCKET="$(_get_config 'socket' "$@")"
@@ -162,8 +163,6 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 			if [ "$MYSQL_DATABASE" ]; then
 				echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%' ;" | "${mysql[@]}"
 			fi
-
-			echo 'FLUSH PRIVILEGES ;' | "${mysql[@]}"
 		fi
 
 		echo
